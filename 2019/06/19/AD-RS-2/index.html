@@ -16,16 +16,16 @@
 <meta name="keywords" content="LR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="广告&amp;推荐面面观（2）：阿里大规模分片线性模型">
-<meta property="og:url" content="http://statunion.cn/2019/06/19/2019-06-21/index.html">
+<meta property="og:url" content="http://statunion.cn/2019/06/19/AD-RS-2/index.html">
 <meta property="og:site_name" content="应统联盟">
 <meta property="og:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称La">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-035806.png">
-<meta property="og:updated_time" content="2019-06-21T05:20:10.219Z">
+<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png">
+<meta property="og:updated_time" content="2019-06-21T06:58:13.702Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="广告&amp;推荐面面观（2）：阿里大规模分片线性模型">
 <meta name="twitter:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称La">
-<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-035806.png">
+<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png">
     
 
     
@@ -154,7 +154,7 @@ var _hmt = _hmt || [];
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-2019-06-21" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-AD-RS-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
@@ -171,7 +171,7 @@ var _hmt = _hmt || [];
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/06/19/2019-06-21/" class="article-date">
+        <a href="/2019/06/19/AD-RS-2/" class="article-date">
             <time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time>
         </a>
     </div>
@@ -192,7 +192,7 @@ var _hmt = _hmt || [];
         
         <div class="article-entry" itemprop="articleBody">
             <h2 id="一、动机"><a href="#一、动机" class="headerlink" title="一、动机"></a>一、动机</h2><p>点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-035806.png" alt></p>
+<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png" alt></p>
 <p>阿里妈妈在2011年提出了MLR模型，全称Large Scale Piecewise Linear Model (LS-PLM)，大规模分片线性模型，背后的思想就是根据领域知识先验将整个空间划分为多个区域，每个区域由一个特定的线性模型来拟合，区域之间平滑连接，当区域达到一定的数量，即可拟合任意复杂的非线性模式。MLR可以看做是LR模型的推广，从线性过渡到非线性，同时省去了大量的人工特征工程，可以端到端训练。</p>
 <h2 id="二、模型"><a href="#二、模型" class="headerlink" title="二、模型"></a>二、模型</h2><p>上面讲到MLR通过先验领域知识划分空间为局部区域，然后每个区域拟合线性模型，可使用如下判别公式来刻画：</p>
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-05-28-144038.png" alt></p>
@@ -216,7 +216,7 @@ var _hmt = _hmt || [];
 <p>至此我们得到了方向导数，接下里的问题就是如何利用方向导数来更新参数，文中使用LBFGS框架，并采取了类似于OWLQN算法的做法，接下来介绍一下论文是如何优化的。</p>
 <h3 id="3-2-LBFGS"><a href="#3-2-LBFGS" class="headerlink" title="3.2 LBFGS"></a>3.2 LBFGS</h3><p>大多数的数值优化算法都是迭代式的，优化的目的就是希望参数序列收敛于$x^*$，从而使$f(x)$最优化。</p>
 <p>在牛顿法中使用二阶泰勒展开来近似目标函数：</p>
-<p><img src="/2019/06/19/2019-06-21/media/15593838013619.jpg" alt></p>
+<p><img src="/2019/06/19/AD-RS-2/media/15593838013619.jpg" alt></p>
 <p>令$g_n$表示$f$在$x_n$处的梯度，$H_n$表示目标函数$f$在$x_n$处的Hessian矩阵，简化$f(x+\Delta x)$=$h_n(\Delta x)$<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-01-101320.png" alt><br>求导令其为零，得到的$\Delta x$都是他的局部极值点，若$f$是凸函数，则$H$为正定矩阵，则此时局部最优即为全局最优。</p>
 <p>得到如下更新式：<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-01-102019.png" alt></p>
 <p>其中步长$a$可采用line search的方法，比如backtracking line search方法，即选用逐渐递减的步长。</p>
@@ -266,7 +266,7 @@ var _hmt = _hmt || [];
 
 
 
-    <a data-url="http://statunion.cn/2019/06/19/2019-06-21/" data-id="cjx5q7co8001mlmn8ah9ec3fc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://statunion.cn/2019/06/19/AD-RS-2/" data-id="cjx5qtmog0000nfn8iexpgsyi" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -337,13 +337,13 @@ var _hmt = _hmt || [];
             "name": "StatUnion"
         },
         "headline": "广告&amp;推荐面面观（2）：阿里大规模分片线性模型",
-        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-02-035806.png",
+        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png",
         "keywords": "LR",
         "genre": "算法 广告&推荐",
         "datePublished": "2019-06-19",
         "dateCreated": "2019-06-19",
         "dateModified": "2019-06-21",
-        "url": "http://statunion.cn/2019/06/19/2019-06-21/",
+        "url": "http://statunion.cn/2019/06/19/AD-RS-2/",
         "description": "一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：
 
 阿里妈妈在2011年提出了MLR模型，全称La"
@@ -402,10 +402,20 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
+        <a href="/2019/06/19/Spark-1/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            Spark笔记（1）：RDD编程
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
     
-        <a href="/2019/06/19/AD-RS-1/" id="article-nav-older" class="article-nav-link-wrap">
+    
+        <a href="/2019/04/27/BNU-1/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">广告&amp;推荐面面观（1）：经久不衰的逻辑回归</p>
+        <p class="article-nav-title">19北师大应用统计专硕考研心得经验分享</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -438,26 +448,6 @@ var _hmt = _hmt || [];
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/06/19/2019-06-21/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-035806.png)" alt="广告&amp;推荐面面观（2）：阿里大规模分片线性模型" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/算法/">算法</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/算法/广告-推荐/">广告&推荐</a></p>
-                            <p class="item-title"><a href="/2019/06/19/2019-06-21/" class="title">广告&amp;推荐面面观（2）：阿里大规模分片线性模型</a></p>
-                            <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
-                        </div>
-                    </li>
                 
                     <li>
                         
@@ -515,6 +505,26 @@ var _hmt = _hmt || [];
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/大数据/">大数据</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/大数据/Spark/">Spark</a></p>
                             <p class="item-title"><a href="/2019/06/19/Spark-1/" class="title">Spark笔记（1）：RDD编程</a></p>
+                            <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/06/19/AD-RS-2/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png)" alt="广告&amp;推荐面面观（2）：阿里大规模分片线性模型" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/算法/">算法</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/算法/广告-推荐/">广告&推荐</a></p>
+                            <p class="item-title"><a href="/2019/06/19/AD-RS-2/" class="title">广告&amp;推荐面面观（2）：阿里大规模分片线性模型</a></p>
                             <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
                         </div>
                     </li>
