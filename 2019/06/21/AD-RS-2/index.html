@@ -6,26 +6,26 @@
     
 
     
-    <title>广告&amp;推荐面面观（2）：阿里大规模分片线性模型 | 应统联盟</title>
+    <title>广告&amp;推荐面面观（2）：大规模分片线性模型MLR | 应统联盟</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="LR">
+        <meta name="keywords" content="MLR,方向导数,OWLQN,广告CTR">
     
-    <meta name="description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称La">
-<meta name="keywords" content="LR">
+    <meta name="description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称L">
+<meta name="keywords" content="MLR,方向导数,OWLQN,广告CTR">
 <meta property="og:type" content="article">
-<meta property="og:title" content="广告&amp;推荐面面观（2）：阿里大规模分片线性模型">
-<meta property="og:url" content="http://statunion.cn/2019/06/19/AD-RS-2/index.html">
+<meta property="og:title" content="广告&amp;推荐面面观（2）：大规模分片线性模型MLR">
+<meta property="og:url" content="http://statunion.cn/2019/06/21/AD-RS-2/index.html">
 <meta property="og:site_name" content="应统联盟">
-<meta property="og:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称La">
+<meta property="og:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称L">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png">
-<meta property="og:updated_time" content="2019-06-21T07:32:33.486Z">
+<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg">
+<meta property="og:updated_time" content="2019-06-23T07:23:44.590Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="广告&amp;推荐面面观（2）：阿里大规模分片线性模型">
-<meta name="twitter:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称La">
-<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png">
+<meta name="twitter:title" content="广告&amp;推荐面面观（2）：大规模分片线性模型MLR">
+<meta name="twitter:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称L">
+<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg">
     
 
     
@@ -161,7 +161,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-        广告&amp;推荐面面观（2）：阿里大规模分片线性模型
+        广告&amp;推荐面面观（2）：大规模分片线性模型MLR
         </h1>
     
 
@@ -171,8 +171,8 @@ var _hmt = _hmt || [];
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/06/19/AD-RS-2/" class="article-date">
-            <time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time>
+        <a href="/2019/06/21/AD-RS-2/" class="article-date">
+            <time datetime="2019-06-21T12:20:28.000Z" itemprop="datePublished">2019-06-21</time>
         </a>
     </div>
 
@@ -181,7 +181,7 @@ var _hmt = _hmt || [];
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/LR/">LR</a>
+        <a class="tag-link" href="/tags/MLR/">MLR</a>, <a class="tag-link" href="/tags/OWLQN/">OWLQN</a>, <a class="tag-link" href="/tags/广告CTR/">广告CTR</a>, <a class="tag-link" href="/tags/方向导数/">方向导数</a>
     </div>
 
                 <span id="busuanzi_container_page_pv">
@@ -191,14 +191,15 @@ var _hmt = _hmt || [];
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="一、动机"><a href="#一、动机" class="headerlink" title="一、动机"></a>一、动机</h2><p>点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：</p>
+            <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg" alt></p>
+<h2 id="一、动机"><a href="#一、动机" class="headerlink" title="一、动机"></a>一、动机</h2><p>点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：</p>
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png" alt></p>
 <p>阿里妈妈在2011年提出了MLR模型，全称Large Scale Piecewise Linear Model (LS-PLM)，大规模分片线性模型，背后的思想就是根据领域知识先验将整个空间划分为多个区域，每个区域由一个特定的线性模型来拟合，区域之间平滑连接，当区域达到一定的数量，即可拟合任意复杂的非线性模式。MLR可以看做是LR模型的推广，从线性过渡到非线性，同时省去了大量的人工特征工程，可以端到端训练。</p>
 <h2 id="二、模型"><a href="#二、模型" class="headerlink" title="二、模型"></a>二、模型</h2><p>上面讲到MLR通过先验领域知识划分空间为局部区域，然后每个区域拟合线性模型，可使用如下判别公式来刻画：</p>
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-05-28-144038.png" alt></p>
 <p>其中$\sigma$代表领域先验，决定空间划分（dividing function），$\eta$代表每个局部区域的分类预测模型（fitting function），函数$g$保证模型输出符合概率定义。</p>
 <p>在实际中，使用softmax函数作为dividing function，使用sigmoid函数作为fitting function，以及规定$g(x)=x$，则判别函数可改写为如下：<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-05-28-144117.png" alt></p>
-<p>由（2）可知，该模型包含$2m$个参数，论文中使用了$L_{2,1}$正则和$L_1$正则，其中$L_{2,1}$对参数行范数约束结构化稀疏，压缩$2m$个参数逼近零值，$L_1$则进一步产生稀疏性，使得模型兼具可解释性和泛化能力。</p>
+<p>由（2）可知，该模型包含$2m$个参数，论文中使用了$L_{2,1}$正则和$L_1$正则，其中$L_{2,1}$对参数分组范数约束结构化稀疏，压缩$2m$个参数逼近零值，$L_1$则进一步产生稀疏性，使得模型兼具可解释性和泛化能力。</p>
 <p>目标函数如下：</p>
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-05-28-151435.png" alt></p>
 <p>但是，引入$L_{2,1}$和$L_1$正则项之后，得到了非凸非平滑的目标函数，因为不是处处可导，所以没法用传统的梯度下降算法或者EM算法来优化，但又因为运算的效率与存储对在线预测来说很关键，模型稀疏性就必须要纳入，所以文章论文针对这个问题提出一个大规模非凸问题的优化求解方法，即利用LBFGS算法框架来根据方向导数找到最快下降方向进行参数更新，此外团队实现了一个大规模分布式系统来支持模型的高效并行训练，以下会一一介绍。</p>
@@ -216,7 +217,7 @@ var _hmt = _hmt || [];
 <p>至此我们得到了方向导数，接下里的问题就是如何利用方向导数来更新参数，文中使用LBFGS框架，并采取了类似于OWLQN算法的做法，接下来介绍一下论文是如何优化的。</p>
 <h3 id="3-2-LBFGS"><a href="#3-2-LBFGS" class="headerlink" title="3.2 LBFGS"></a>3.2 LBFGS</h3><p>大多数的数值优化算法都是迭代式的，优化的目的就是希望参数序列收敛于$x^*$，从而使$f(x)$最优化。</p>
 <p>在牛顿法中使用二阶泰勒展开来近似目标函数：</p>
-<p><img src="/2019/06/19/AD-RS-2/media/15593838013619.jpg" alt></p>
+<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-070513.png" alt></p>
 <p>令$g_n$表示$f$在$x_n$处的梯度，$H_n$表示目标函数$f$在$x_n$处的Hessian矩阵，简化$f(x+\Delta x)$=$h_n(\Delta x)$<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-01-101320.png" alt><br>求导令其为零，得到的$\Delta x$都是他的局部极值点，若$f$是凸函数，则$H$为正定矩阵，则此时局部最优即为全局最优。</p>
 <p>得到如下更新式：<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-01-102019.png" alt></p>
 <p>其中步长$a$可采用line search的方法，比如backtracking line search方法，即选用逐渐递减的步长。</p>
@@ -247,7 +248,15 @@ var _hmt = _hmt || [];
 <p>给定更新方向，MLR使用了 backtracking line search方法找到合适的步长$\alpha$，其迭代更新公式如下：<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-030726.png" alt></p>
 <p>MLR最终的优化算法伪代码如下：</p>
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-031234.png" alt></p>
-<h2 id="四、分布式"><a href="#四、分布式" class="headerlink" title="四、分布式"></a>四、分布式</h2><h3 id="4-1-参数服务器"><a href="#4-1-参数服务器" class="headerlink" title="4.1 参数服务器"></a>4.1 参数服务器</h3><h3 id="4-2-Common-Feature-Trick"><a href="#4-2-Common-Feature-Trick" class="headerlink" title="4.2 Common Feature Trick"></a>4.2 Common Feature Trick</h3><h2 id="五、高级特性"><a href="#五、高级特性" class="headerlink" title="五、高级特性"></a>五、高级特性</h2><p>在阿里妈妈团队写的MLR分享文章里面，提及了以下几点MLR的高级特性：</p>
+<h2 id="四、分布式"><a href="#四、分布式" class="headerlink" title="四、分布式"></a>四、分布式</h2><h3 id="4-1-参数服务器"><a href="#4-1-参数服务器" class="headerlink" title="4.1 参数服务器"></a>4.1 参数服务器</h3><p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-2941561274267_.pic.jpg" alt></p>
+<h3 id="4-2-Common-Feature-Trick"><a href="#4-2-Common-Feature-Trick" class="headerlink" title="4.2 Common Feature Trick"></a>4.2 Common Feature Trick</h3><p>用户在一次浏览的过程中遇到多个广告，每个广告都会支持组成一条样本，这样会导致很多特征重复使用，比如用户的人口统计特征，用户基于历史行为的兴趣偏好等，为了解决重复计算的问题，文中提出在向量内积的过程中分成两部分：</p>
+<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-2921561273930_.pic-1.jpg" alt><br>从这个事实出发，训练就可以下列三个Trick：</p>
+<ol>
+<li>训练过程中把有common Feature的样本放在一组，且仅仅保存一次以节省内存</li>
+<li>优化参数时，Common Feature的只更新一次损失函数</li>
+</ol>
+<p>最终效果如下，内存开销减少65%，时间开销减少91%，效果很明显：<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-2931561274129_.pic.jpg" alt></p>
+<h2 id="五、高级特性"><a href="#五、高级特性" class="headerlink" title="五、高级特性"></a>五、高级特性</h2><p>在阿里妈妈团队写的MLR分享文章里面，提及了以下几点MLR的高级特性：</p>
 <ol>
 <li>领域知识先验，这个分别体现在上文说到的dividing function和fitting function，他是基于领域的先验知识来设定dividing function和fitting function，比方说以用户的特征设计分片函数，以广告的特征设计拟合函数，这是基于不同人群具有聚类特性，同一类人群对广告有类似的偏好这样一个前提，此外这样的结构先验也有助于缩小解空间，更容易收敛<img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-034026.png" alt></li>
 <li>加入线性偏置，因为特征的差异导致点击率天然存在一些差异，比如说位置和资源位，所以在损失函数中加入如公式所示的线性偏置，实践中对位置bias信息的建模，获得了4%的RPM提升效果。<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-02-033409.png" alt></li>
@@ -266,7 +275,7 @@ var _hmt = _hmt || [];
 
 
 
-    <a data-url="http://statunion.cn/2019/06/19/AD-RS-2/" data-id="cjx5va1lw001n1hn8u5k3rdrr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://statunion.cn/2019/06/21/AD-RS-2/" data-id="cjx8mhj5i001nrafybwf16d37" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -336,18 +345,19 @@ var _hmt = _hmt || [];
             "@type": "Person",
             "name": "StatUnion"
         },
-        "headline": "广告&amp;推荐面面观（2）：阿里大规模分片线性模型",
-        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png",
-        "keywords": "LR",
+        "headline": "广告&amp;推荐面面观（2）：大规模分片线性模型MLR",
+        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg",
+        "keywords": "MLR 方向导数 OWLQN 广告CTR",
         "genre": "算法 广告&推荐",
-        "datePublished": "2019-06-19",
-        "dateCreated": "2019-06-19",
-        "dateModified": "2019-06-21",
-        "url": "http://statunion.cn/2019/06/19/AD-RS-2/",
-        "description": "一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：
+        "datePublished": "2019-06-21",
+        "dateCreated": "2019-06-21",
+        "dateModified": "2019-06-23",
+        "url": "http://statunion.cn/2019/06/21/AD-RS-2/",
+        "description": "
+一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：
 
-阿里妈妈在2011年提出了MLR模型，全称La"
-        "wordCount": 192
+阿里妈妈在2011年提出了MLR模型，全称L"
+        "wordCount": 202
     }
 </script>
 
@@ -402,20 +412,20 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
-        <a href="/2019/06/19/AD-RS-1/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2019/06/22/Spark-2/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">下一篇</strong>
         <p class="article-nav-title">
         
-            广告&amp;推荐面面观（1）：经久不衰的逻辑回归
+            Spark笔记（2）：Pair RDD与数据分区
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2019/06/19/ML-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/06/19/AD-RS-1/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">机器学习笔记（1）：线性回归</p>
+        <p class="article-nav-title">广告&amp;推荐面面观（1）：经久不衰的逻辑回归</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -452,6 +462,46 @@ var _hmt = _hmt || [];
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2019/06/22/Spark-2/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/大数据/">大数据</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/大数据/Spark/">Spark</a></p>
+                            <p class="item-title"><a href="/2019/06/22/Spark-2/" class="title">Spark笔记（2）：Pair RDD与数据分区</a></p>
+                            <p class="item-date"><time datetime="2019-06-22T12:20:28.000Z" itemprop="datePublished">2019-06-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/06/21/AD-RS-2/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/算法/">算法</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/算法/广告-推荐/">广告&推荐</a></p>
+                            <p class="item-title"><a href="/2019/06/21/AD-RS-2/" class="title">广告&amp;推荐面面观（2）：大规模分片线性模型MLR</a></p>
+                            <p class="item-date"><time datetime="2019-06-21T12:20:28.000Z" itemprop="datePublished">2019-06-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2019/06/19/AD-RS-1/" class="thumbnail">
     
     
@@ -465,26 +515,6 @@ var _hmt = _hmt || [];
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/算法/">算法</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/算法/广告-推荐/">广告&推荐</a></p>
                             <p class="item-title"><a href="/2019/06/19/AD-RS-1/" class="title">广告&amp;推荐面面观（1）：经久不衰的逻辑回归</a></p>
-                            <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/06/19/AD-RS-2/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-065643.png)" alt="广告&amp;推荐面面观（2）：阿里大规模分片线性模型" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/算法/">算法</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/算法/广告-推荐/">广告&推荐</a></p>
-                            <p class="item-title"><a href="/2019/06/19/AD-RS-2/" class="title">广告&amp;推荐面面观（2）：阿里大规模分片线性模型</a></p>
                             <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
                         </div>
                     </li>
@@ -512,30 +542,10 @@ var _hmt = _hmt || [];
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/06/19/University-1/" class="thumbnail">
+                            <a href="/2019/06/19/Spark-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-085357.png)" alt="帝都高校应统考研倾心解析" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/考研/">考研</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/考研/院校解读/">院校解读</a></p>
-                            <p class="item-title"><a href="/2019/06/19/University-1/" class="title">帝都高校应统考研倾心解析</a></p>
-                            <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/06/19/University-2/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-21-085357.png)" alt="魔都四校应统考研必备智库" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（1）：RDD编程" class="thumbnail-image"></span>
     
     
 </a>
@@ -543,8 +553,8 @@ var _hmt = _hmt || [];
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/考研/">考研</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/考研/院校解读/">院校解读</a></p>
-                            <p class="item-title"><a href="/2019/06/19/University-2/" class="title">魔都四校应统考研必备智库</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/大数据/">大数据</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/大数据/Spark/">Spark</a></p>
+                            <p class="item-title"><a href="/2019/06/19/Spark-1/" class="title">Spark笔记（1）：RDD编程</a></p>
                             <p class="item-date"><time datetime="2019-06-19T12:20:28.000Z" itemprop="datePublished">2019-06-19</time></p>
                         </div>
                     </li>
@@ -558,7 +568,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/Spark/">Spark</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/广告-推荐/">广告&推荐</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/机器学习/">机器学习</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/">考研</a><span class="category-list-count">27</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/考研/上海交通大学/">上海交通大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/上海财经大学/">上海财经大学</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/中国人民大学/">中国人民大学</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/中央财经大学/">中央财经大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/北京大学/">北京大学</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/北京师范大学/">北京师范大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/华东师范大学/">华东师范大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/复旦大学/">复旦大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/对外经济贸易大学/">对外经济贸易大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/清华大学/">清华大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/院校解读/">院校解读</a><span class="category-list-count">2</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/Spark/">Spark</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/广告-推荐/">广告&推荐</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/机器学习/">机器学习</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/">考研</a><span class="category-list-count">27</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/考研/上海交通大学/">上海交通大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/上海财经大学/">上海财经大学</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/中国人民大学/">中国人民大学</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/中央财经大学/">中央财经大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/北京大学/">北京大学</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/北京师范大学/">北京师范大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/华东师范大学/">华东师范大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/复旦大学/">复旦大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/对外经济贸易大学/">对外经济贸易大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/清华大学/">清华大学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/考研/院校解读/">院校解读</a><span class="category-list-count">2</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -568,7 +578,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/LR/" style="font-size: 12px;">LR</a> <a href="/tags/RDD编程/" style="font-size: 10px;">RDD编程</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/上海交大/" style="font-size: 10px;">上海交大</a> <a href="/tags/上海交通大学/" style="font-size: 10px;">上海交通大学</a> <a href="/tags/上海财经/" style="font-size: 10px;">上海财经</a> <a href="/tags/上海财经大学/" style="font-size: 12px;">上海财经大学</a> <a href="/tags/专业介绍/" style="font-size: 12px;">专业介绍</a> <a href="/tags/中国人民大学/" style="font-size: 18px;">中国人民大学</a> <a href="/tags/中央财经大学/" style="font-size: 10px;">中央财经大学</a> <a href="/tags/中财/" style="font-size: 10px;">中财</a> <a href="/tags/北京大学/" style="font-size: 16px;">北京大学</a> <a href="/tags/北京师范大学/" style="font-size: 10px;">北京师范大学</a> <a href="/tags/北师大/" style="font-size: 10px;">北师大</a> <a href="/tags/华东师范/" style="font-size: 10px;">华东师范</a> <a href="/tags/华东师范大学/" style="font-size: 10px;">华东师范大学</a> <a href="/tags/历年分数线/" style="font-size: 10px;">历年分数线</a> <a href="/tags/历年真题/" style="font-size: 14px;">历年真题</a> <a href="/tags/参考资料/" style="font-size: 10px;">参考资料</a> <a href="/tags/复旦大学/" style="font-size: 12px;">复旦大学</a> <a href="/tags/外经贸/" style="font-size: 10px;">外经贸</a> <a href="/tags/对外经济贸易大学/" style="font-size: 10px;">对外经济贸易大学</a> <a href="/tags/就业情况/" style="font-size: 10px;">就业情况</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/报录比/" style="font-size: 10px;">报录比</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/清华大学/" style="font-size: 12px;">清华大学</a> <a href="/tags/真题/" style="font-size: 10px;">真题</a> <a href="/tags/线性回归/" style="font-size: 10px;">线性回归</a> <a href="/tags/经验贴/" style="font-size: 20px;">经验贴</a>
+            <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/MLR/" style="font-size: 10px;">MLR</a> <a href="/tags/OWLQN/" style="font-size: 10px;">OWLQN</a> <a href="/tags/Pair-RDD/" style="font-size: 10px;">Pair RDD</a> <a href="/tags/RDD编程/" style="font-size: 10px;">RDD编程</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/上海交大/" style="font-size: 10px;">上海交大</a> <a href="/tags/上海交通大学/" style="font-size: 10px;">上海交通大学</a> <a href="/tags/上海财经/" style="font-size: 10px;">上海财经</a> <a href="/tags/上海财经大学/" style="font-size: 12px;">上海财经大学</a> <a href="/tags/专业介绍/" style="font-size: 12px;">专业介绍</a> <a href="/tags/中国人民大学/" style="font-size: 18px;">中国人民大学</a> <a href="/tags/中央财经大学/" style="font-size: 10px;">中央财经大学</a> <a href="/tags/中财/" style="font-size: 10px;">中财</a> <a href="/tags/北京大学/" style="font-size: 16px;">北京大学</a> <a href="/tags/北京师范大学/" style="font-size: 10px;">北京师范大学</a> <a href="/tags/北师大/" style="font-size: 10px;">北师大</a> <a href="/tags/华东师范/" style="font-size: 10px;">华东师范</a> <a href="/tags/华东师范大学/" style="font-size: 10px;">华东师范大学</a> <a href="/tags/历年分数线/" style="font-size: 10px;">历年分数线</a> <a href="/tags/历年真题/" style="font-size: 14px;">历年真题</a> <a href="/tags/参考资料/" style="font-size: 10px;">参考资料</a> <a href="/tags/复旦大学/" style="font-size: 12px;">复旦大学</a> <a href="/tags/外经贸/" style="font-size: 10px;">外经贸</a> <a href="/tags/对外经济贸易大学/" style="font-size: 10px;">对外经济贸易大学</a> <a href="/tags/就业情况/" style="font-size: 10px;">就业情况</a> <a href="/tags/广告CTR/" style="font-size: 10px;">广告CTR</a> <a href="/tags/思维导图/" style="font-size: 10px;">思维导图</a> <a href="/tags/报录比/" style="font-size: 10px;">报录比</a> <a href="/tags/数据分区/" style="font-size: 10px;">数据分区</a> <a href="/tags/方向导数/" style="font-size: 10px;">方向导数</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/清华大学/" style="font-size: 12px;">清华大学</a> <a href="/tags/真题/" style="font-size: 10px;">真题</a> <a href="/tags/线性回归/" style="font-size: 10px;">线性回归</a> <a href="/tags/经验贴/" style="font-size: 20px;">经验贴</a>
         </div>
     </div>
 
