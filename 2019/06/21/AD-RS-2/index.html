@@ -21,7 +21,7 @@
 <meta property="og:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称L">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg">
-<meta property="og:updated_time" content="2019-06-23T07:23:44.590Z">
+<meta property="og:updated_time" content="2019-06-23T07:28:16.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="广告&amp;推荐面面观（2）：大规模分片线性模型MLR">
 <meta name="twitter:description" content="一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：  阿里妈妈在2011年提出了MLR模型，全称L">
@@ -268,6 +268,11 @@ var _hmt = _hmt || [];
 <h2 id="六、业务现状"><a href="#六、业务现状" class="headerlink" title="六、业务现状"></a>六、业务现状</h2><p>阿里妈妈团队主要将MLR主要应用于定向广告的CTR预估和定向广告的Learning to Match：</p>
 <p>对于定向广告CTR，他们将用户画像特征、用户历史行为特征、广告画像特征组成2亿为的embedding向量，直接放到MLR模型中训练，并且采用了线性偏置、领域知识先验、增量训练的高级特征，提升了CTR预估的精度。</p>
 <p>Learning to Match，即基于用户的人口属性、历史行为等信息来猜测用户可能感兴趣的广告集合，一般会使用规则匹配和协同过滤来做召回模块，阿里妈妈研发了基于MLR的learning to match算法框架，首先基于用户的行为历史来学习用户个性化兴趣，召回候选集，MLR框架很容易融合将不同的特征源、标签体系，省去交叉组合的成本，灵活性很高。</p>
+<p>参考资料：</p>
+<ol>
+<li><a href="https://arxiv.org/pdf/1704.05194.pdf" target="_blank" rel="noopener"></a></li>
+<li><a href="http://www.hankcs.com/ml/l-bfgs.html" target="_blank" rel="noopener">数值优化：理解L-BFGS算法</a></li>
+</ol>
 
         </div>
         <footer class="article-footer">
@@ -357,7 +362,7 @@ var _hmt = _hmt || [];
 一、动机点击率预估需要解决的超高维度离散特征空间模式识别的问题，它需要算法在做到可以有效发现当前数据规律的同时，还要具有足够的泛化能力去应对线上多变的user-context-content模式，所以到目前为止有许多的CTR模型被应用于实际场景中，诸如LR、DNN、Tree Model、FM/FFM，这些模型都有各自的优势，但也存在缺陷，整理如下：
 
 阿里妈妈在2011年提出了MLR模型，全称L"
-        "wordCount": 202
+        "wordCount": 208
     }
 </script>
 

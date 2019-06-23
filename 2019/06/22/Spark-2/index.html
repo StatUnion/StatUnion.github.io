@@ -12,19 +12,19 @@
     
         <meta name="keywords" content="Pair RDD,数据分区">
     
-    <meta name="description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 一、Pair RDD创建123456在pyt">
+    <meta name="description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 然后再看一下数据分区相关的内容，数据分区对分">
 <meta name="keywords" content="Pair RDD,数据分区">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark笔记（2）：Pair RDD与数据分区">
 <meta property="og:url" content="http://statunion.cn/2019/06/22/Spark-2/index.html">
 <meta property="og:site_name" content="应统联盟">
-<meta property="og:description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 一、Pair RDD创建123456在pyt">
+<meta property="og:description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 然后再看一下数据分区相关的内容，数据分区对分">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
-<meta property="og:updated_time" content="2019-06-23T07:02:35.308Z">
+<meta property="og:updated_time" content="2019-06-23T07:48:40.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark笔记（2）：Pair RDD与数据分区">
-<meta name="twitter:description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 一、Pair RDD创建123456在pyt">
+<meta name="twitter:description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 然后再看一下数据分区相关的内容，数据分区对分">
 <meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
     
 
@@ -193,6 +193,7 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
             <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png" alt></p>
 <p>这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。</p>
+<p>然后再看一下数据分区相关的内容，数据分区对分布式集群上跑数据来说及其重要，一个小的优化就会极大的降低时间成本和内存开销，这一块也是写Spark Job过程中需要重点关注的。</p>
 <h3 id="一、Pair-RDD创建"><a href="#一、Pair-RDD创建" class="headerlink" title="一、Pair RDD创建"></a>一、Pair RDD创建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在python中使用第一个单词作为键创建出一个pair RDD</span><br><span class="line">%pyspark</span><br><span class="line">lines = sc.parallelize([&apos;I have a dream&apos;,&apos;hello world&apos;])</span><br><span class="line">lines.map(lambda x: (x.split(&apos; &apos;)[0],x)).take(10)</span><br><span class="line"></span><br><span class="line">[(&apos;I&apos;, &apos;I have a dream&apos;), (&apos;hello&apos;, &apos;hello world&apos;)]</span><br></pre></td></tr></table></figure>
 <h3 id="二、Pair-RDD转化操作"><a href="#二、Pair-RDD转化操作" class="headerlink" title="二、Pair RDD转化操作"></a>二、Pair RDD转化操作</h3><ul>
 <li>聚合操作 </li>
@@ -233,6 +234,7 @@ var _hmt = _hmt || [];
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-065308.png" alt></p>
 <p>scala可以使用RDD的partitioner属性来获取RDD的分区方式，它会返回一个scala.Option对象。</p>
 <p>可以从数据分区中获益的操作有cogroup() , groupWith() , join() , leftOuterJoin() , rightOuterJoin() , groupByKey() , reduceByKey() , combineByKey()以及lookup()。</p>
+<p>参考资料：《Spark快速大数据分析》</p>
 
         </div>
         <footer class="article-footer">
@@ -320,8 +322,8 @@ var _hmt = _hmt || [];
         "url": "http://statunion.cn/2019/06/22/Spark-2/",
         "description": "
 这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。
-一、Pair RDD创建123456在pyt"
-        "wordCount": 573
+然后再看一下数据分区相关的内容，数据分区对分"
+        "wordCount": 574
     }
 </script>
 
