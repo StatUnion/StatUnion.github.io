@@ -12,20 +12,20 @@
     
         <meta name="keywords" content="驱动器,执行器,spark-submit,YARN">
     
-    <meta name="description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用spa">
+    <meta name="description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用sp">
 <meta name="keywords" content="驱动器,执行器,spark-submit,YARN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark笔记（3）：集群运行Spark程序实例讲解">
 <meta property="og:url" content="http://statunion.cn/2019/06/26/Spark-3/index.html">
 <meta property="og:site_name" content="应统联盟">
-<meta property="og:description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用spa">
+<meta property="og:description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用sp">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-031918.png">
-<meta property="og:updated_time" content="2019-06-26T09:16:08.847Z">
+<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
+<meta property="og:updated_time" content="2019-06-26T09:18:51.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark笔记（3）：集群运行Spark程序实例讲解">
-<meta name="twitter:description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用spa">
-<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-031918.png">
+<meta name="twitter:description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用sp">
+<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
     
 
     
@@ -191,7 +191,8 @@ var _hmt = _hmt || [];
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。</p>
+            <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png" alt></p>
+<p>之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。</p>
 <p>这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。</p>
 <h2 id="一、spark-submit应用部署"><a href="#一、spark-submit应用部署" class="headerlink" title="一、spark-submit应用部署"></a>一、spark-submit应用部署</h2><p>Spark使用spark-submit脚本来启动集群部署模式，进入/usr/bin/目录，可以看到一个spark-submit脚本，输入spark-submit –help可以看到一些配置选项介绍，截取一部分如下图：</p>
 <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-031918.png" alt></p>
@@ -460,17 +461,18 @@ var _hmt = _hmt || [];
             "name": "StatUnion"
         },
         "headline": "Spark笔记（3）：集群运行Spark程序实例讲解",
-        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-25-031918.png",
+        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png",
         "keywords": "驱动器 执行器 spark-submit YARN",
         "genre": "大数据 Spark",
         "datePublished": "2019-06-26",
         "dateCreated": "2019-06-26",
         "dateModified": "2019-06-26",
         "url": "http://statunion.cn/2019/06/26/Spark-3/",
-        "description": "之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。
+        "description": "
+之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。
 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。
-一、spark-submit应用部署Spark使用spa"
-        "wordCount": 231
+一、spark-submit应用部署Spark使用sp"
+        "wordCount": 233
     }
 </script>
 
@@ -568,7 +570,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/26/Spark-3/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-031918.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
     
     
 </a>
