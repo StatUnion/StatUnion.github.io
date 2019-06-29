@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="应统联盟">
 <meta property="og:description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 然后再看一下数据分区相关的内容，数据分区对分">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
-<meta property="og:updated_time" content="2019-06-23T07:48:40.579Z">
+<meta property="og:image" content="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
+<meta property="og:updated_time" content="2019-06-29T06:37:28.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark笔记（2）：Pair RDD与数据分区">
 <meta name="twitter:description" content="这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。 然后再看一下数据分区相关的内容，数据分区对分">
-<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
+<meta name="twitter:image" content="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
     
 
     
@@ -191,7 +191,7 @@ var _hmt = _hmt || [];
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png" alt></p>
+            <p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png" alt></p>
 <p>这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。</p>
 <p>然后再看一下数据分区相关的内容，数据分区对分布式集群上跑数据来说及其重要，一个小的优化就会极大的降低时间成本和内存开销，这一块也是写Spark Job过程中需要重点关注的。</p>
 <h3 id="一、Pair-RDD创建"><a href="#一、Pair-RDD创建" class="headerlink" title="一、Pair RDD创建"></a>一、Pair RDD创建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在python中使用第一个单词作为键创建出一个pair RDD</span><br><span class="line">%pyspark</span><br><span class="line">lines = sc.parallelize([&apos;I have a dream&apos;,&apos;hello world&apos;])</span><br><span class="line">lines.map(lambda x: (x.split(&apos; &apos;)[0],x)).take(10)</span><br><span class="line"></span><br><span class="line">[(&apos;I&apos;, &apos;I have a dream&apos;), (&apos;hello&apos;, &apos;hello world&apos;)]</span><br></pre></td></tr></table></figure>
@@ -219,7 +219,7 @@ var _hmt = _hmt || [];
 <p>coalesce()函数中有两个传入参数，coalesce(numPartitions,shuffle),其中numPartitions为指定分区数，shuffle为是否进行shuffle，默认为false，若numPartitions大于原有的分区数，必须指定shuffle=True；但避免进行shuffle可以节省网络开销。</p>
 <p>repartition()函数只有一个传入参数，repartition(numPartitions)，因为它指定了shuffle为True。</p>
 <h4 id="combineByKey-分区数据处理过程"><a href="#combineByKey-分区数据处理过程" class="headerlink" title="combineByKey()分区数据处理过程"></a>combineByKey()分区数据处理过程</h4><p>combineByKey是Spark中一个比较核心的高级函数，groupByKey、reduceByKey的底层都是使用combineByKey实现的，我们来看一下combineByKey()是如何处理分区数据的。</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-060511.png" alt><br>这个数据流图中出现了三个函数createCombiner、mergeValue、mergeCombiners，分别看一下概念：</p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-23-060511.png" alt><br>这个数据流图中出现了三个函数createCombiner、mergeValue、mergeCombiners，分别看一下概念：</p>
 <p>createCombiner: combineByKey()会遍历分区中的所有元素，因此每个元素的键要么新出现，要么之前遇到过。若是一个新元素， combineByKey()会使用一个createCombiner() 函数创建那个键对应的累加器的初始值。</p>
 <p>mergeValue: 如果键在之前遇到过，可以使用mergeValue()方法将该键的累加器对应的当前值与这个新的值进行合并。</p>
 <p>mergeCombiners: 每个分区独立操作，所以对于同一个键可有多个累加器。若多个分区都有同一个键的累加器，就需要用mergeCombiners() 将各个分区的结果合并。</p>
@@ -227,11 +227,11 @@ var _hmt = _hmt || [];
 <h4 id="数据分区优化"><a href="#数据分区优化" class="headerlink" title="数据分区优化"></a>数据分区优化</h4><p>Spark程序可以通过控制RDD分区方式来减少通信开销。举个具体的例子，下面这段scala代码计算了查阅自己订阅主题页面的用户数量。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">val sc.new SparkContext(...)</span><br><span class="line"></span><br><span class="line">val userData = sc.sequenceFile[UserID,UserInfo](&quot;hdfs://...&quot;).persist() //UserID用户ID,UserInfo用户订阅的主题，类似于(&quot;Mike&quot;,List(&quot;sports&quot;,&quot;math&quot;)这样的元素</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def processNewLogs(logFileName:String)&#123;</span><br><span class="line">    val events = sc.sequenceFile[UserID,LinkInfo](logFileName) # 用户访问情况，元素类似于(&quot;Mike&quot;,&quot;sports&quot;)</span><br><span class="line">    userData.persist()</span><br><span class="line">    val joined = userData.join(events)</span><br><span class="line">    val results = joined.filter(&#123;</span><br><span class="line">      case (id, (info, link)) =&gt;</span><br><span class="line">        info.contains(link)</span><br><span class="line">    &#125;</span><br><span class="line">    ).count()</span><br><span class="line">    println(&apos;Number of visits to subscribed topics:&apos;+results)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但这里有个问题就是，每次调用processNewLogs时，会有一个join操作，会将两个数据集中的所有键的哈希值都求出来，将该哈希值相同的记录通过网络传到同一台机器上，然后在那台机器上对所有键相同的记录进行连接操作。假如userdata表很大很大，而且几乎是不怎么变化的，那么每次都对userdata表进行哈希值计算和跨节点的数据混洗，就会产生很多的额外开销。这个过程的join操作如下：</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-063439.png" alt></p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-23-063439.png" alt></p>
 <p>如何解决网络开销的问题呢？可以再程序开始时，对userdata表使用partitionBy()转化操作，将这张表转为哈希分区。具体实现如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">val sc.new SparkContext(...)</span><br><span class="line"></span><br><span class="line">val userData = sc.sequenceFile[UserID,UserInfo](&quot;hdfs://...&quot;).partitionBy(new HashPartitioner).persist()  // UserID用户ID,UserInfo用户订阅的主题，类似于(&quot;Mike&quot;,List(&quot;sports&quot;,&quot;math&quot;)这样的元素</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def processNewLogs(logFileName:String)&#123;</span><br><span class="line">    val events = sc.sequenceFile[UserID,LinkInfo](logFileName) # 用户访问情况，元素类似于(&quot;Mike&quot;,&quot;sports&quot;)</span><br><span class="line">    userData.persist()</span><br><span class="line">    val joined = userData.join(events)</span><br><span class="line">    val results = joined.filter(&#123;</span><br><span class="line">      case (id, (info, link)) =&gt;</span><br><span class="line">        info.contains(link)</span><br><span class="line">    &#125;</span><br><span class="line">    ).count()</span><br><span class="line">    println(&apos;Number of visits to subscribed topics:&apos;+results)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>构建userData时调用了partitionBy()，在调用join()时，Spark只会对events进行数据混洗操作，将events中特定UserID的记录发送到userData的对应分区所在的那台机器上。这样，通过网络传输的数据就大大减少，程序运行速度也可以显著提升。partitionBy()是一个转化操作，因此它的返回值是一个新的RDD。还有一点要注意，这里必须要持久化才可以在后面用到RDD时不重复分区操作。</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-23-065308.png" alt></p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-23-065308.png" alt></p>
 <p>scala可以使用RDD的partitioner属性来获取RDD的分区方式，它会返回一个scala.Option对象。</p>
 <p>可以从数据分区中获益的操作有cogroup() , groupWith() , join() , leftOuterJoin() , rightOuterJoin() , groupByKey() , reduceByKey() , combineByKey()以及lookup()。</p>
 <p>参考资料：《Spark快速大数据分析》</p>
@@ -313,12 +313,12 @@ var _hmt = _hmt || [];
             "name": "StatUnion"
         },
         "headline": "Spark笔记（2）：Pair RDD与数据分区",
-        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png",
+        "image": "http://statunion.cnhttp://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png",
         "keywords": "Pair RDD 数据分区",
         "genre": "大数据 Spark",
         "datePublished": "2019-06-22",
         "dateCreated": "2019-06-22",
-        "dateModified": "2019-06-23",
+        "dateModified": "2019-06-29",
         "url": "http://statunion.cn/2019/06/22/Spark-2/",
         "description": "
 这一章节我们来看一下在Spark常用来进行聚合操作的Pair RDD，其实类似于字典，由key-value对构成，同样的，Pair RDD也有很多的操作接口，比如reduceByKey()、join()，下面会逐一对介绍，很多语言的语法都是相同的，这里的聚合操作就类似于SQL中的group by或者python中的groupby，所以领会起来也不难。
@@ -412,7 +412,7 @@ var _hmt = _hmt || [];
 
          <br>
 
-		<p><img border="50" src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-15-statunion.png" width="260" height="260">
+		<p><img border="50" src="http://ptuaevgcl.bkt.clouddn.com/2019-06-15-statunion.png" width="260" height="260">
 		</p>
 
         </div>
@@ -431,7 +431,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/26/Spark-3/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
     
     
 </a>
@@ -451,7 +451,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/22/Spark-2/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
     
     
 </a>
@@ -471,7 +471,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/21/AD-RS-2/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
     
     
 </a>
@@ -491,7 +491,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/19/AD-RS-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（1）：经久不衰的逻辑回归" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（1）：经久不衰的逻辑回归" class="thumbnail-image"></span>
     
     
 </a>
@@ -511,7 +511,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/19/ML-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-014738.png)" alt="机器学习笔记（1）：线性回归" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png)" alt="机器学习笔记（1）：线性回归" class="thumbnail-image"></span>
     
     
 </a>

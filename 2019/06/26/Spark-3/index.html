@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="应统联盟">
 <meta property="og:description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用sp">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
-<meta property="og:updated_time" content="2019-06-26T09:18:51.934Z">
+<meta property="og:image" content="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
+<meta property="og:updated_time" content="2019-06-29T06:34:02.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark笔记（3）：集群运行Spark程序实例讲解">
 <meta name="twitter:description" content="之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。 这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。 一、spark-submit应用部署Spark使用sp">
-<meta name="twitter:image" content="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
+<meta name="twitter:image" content="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png">
     
 
     
@@ -191,13 +191,13 @@ var _hmt = _hmt || [];
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png" alt></p>
+            <p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png" alt></p>
 <p>之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。</p>
 <p>这一小节从提交一个集群环境下的Spark Job出发，讨论了在集群运行Spark Job时的配置项，再讲到Spark基础的架构，最后讲解了一下Spark Job性能调试的经验。</p>
 <h2 id="一、spark-submit应用部署"><a href="#一、spark-submit应用部署" class="headerlink" title="一、spark-submit应用部署"></a>一、spark-submit应用部署</h2><p>Spark使用spark-submit脚本来启动集群部署模式，进入/usr/bin/目录，可以看到一个spark-submit脚本，输入spark-submit –help可以看到一些配置选项介绍，截取一部分如下图：</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-031918.png" alt></p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-25-031918.png" alt></p>
 <p>以下是一个spark-submit提交scala应用的shell脚本的示例，我们可以看到在主程序job_submit中，我们从控制台传入了四个所需参数，对spark-submit进行了配置，比如class/master/queue等等，以下会逐一讲解，最后我们传入了JAR_FILE及其参数，这是我们的需要执行的打包的scala程序：</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-24-233329.png" alt></p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-24-233329.png" alt></p>
 <p>所以spark-submit的一般格式是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usr/bin/spark-submit [options] &lt;app jar | python file&gt; [app options]</span><br><span class="line">usr/bin/spark-submit [选项配置] &lt;程序jar包或者python脚本文件&gt; [程序参数]</span><br></pre></td></tr></table></figure>
 <p>这里主要讲几个比较常用的配置项：</p>
@@ -262,7 +262,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>以上这些选项主要包括两部分，第一部分为调度的信息，比如master、driver-memory、exectors-cores，这部分和我们的性能调试息息相关，后面会讲到怎么去做调整；第二部分是依赖，比如files、py-files。</p>
 <p>上面出现了一些陌生的概念，比如驱动器、执行器、集群等等，这些都是Spark架构中的概念，分别看一下。</p>
-<h2 id="二、Spark基础架构"><a href="#二、Spark基础架构" class="headerlink" title="二、Spark基础架构"></a>二、Spark基础架构</h2><p>下图为Spark架构组成图，有三个主要组成部分，Driver Program、Cluster Manager和Worker Node。<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-011438.png" alt></p>
+<h2 id="二、Spark基础架构"><a href="#二、Spark基础架构" class="headerlink" title="二、Spark基础架构"></a>二、Spark基础架构</h2><p>下图为Spark架构组成图，有三个主要组成部分，Driver Program、Cluster Manager和Worker Node。<br><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-25-011438.png" alt></p>
 <ul>
 <li>Driver Program：驱动器程序，负责中央协调，调度各个分布式工作节点；</li>
 <li>Cluster Manager：集群管理器，控制整个集群，监控worker。自带的集群管理器称为独立集群管理器，也可以运行在Hadoop YARN或者Apache Mesos上；</li>
@@ -335,15 +335,15 @@ var _hmt = _hmt || [];
 <li>executors：查看申请使用的内存大小以及shuffle中input和output等数据</li>
 <li>AppName：显示代码中使用setAppName设定应用名字</li>
 </ol>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-26-%E6%9C%AA%E5%91%BD%E5%90%8D-1.png" alt></p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-26-%E6%9C%AA%E5%91%BD%E5%90%8D-1.png" alt></p>
 <p>下图为Spark的UI主页面，这里展示了已完成的Job信息，点击Job进入详细页面，分为两部分，一部分是event timeline，另一部分是进行中和完成的job任务。</p>
-<p><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-26-084714.png" alt></p>
+<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-26-084714.png" alt></p>
 <p>更多页面的详细介绍可以参考这个链接</p>
 <p><a href="https://www.cnblogs.com/xing901022/p/6445254.html" target="_blank" rel="noopener">基于SparkUI性能优化与调试</a></p>
 <h4 id="yarn-logs"><a href="#yarn-logs" class="headerlink" title="yarn logs"></a>yarn logs</h4><p>如果我们没法从UI界面中排查出错原因，这时候只有把driver和executor进程所生成的日志来得到更多的信息，因为日志会详细记录各种异常事件，比如内部警告以及用户代码输出的详细异常信息。</p>
 <p>在YARN模式下，我们可以在控制台输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn logs -applicationId &lt;app ID&gt;</span><br></pre></td></tr></table></figure>
-<p>示例如下：<br><img src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-25-134752.png" alt></p>
+<p>示例如下：<br><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-25-134752.png" alt></p>
 <p>app ID一般会在程序执行的时候打印到控制台，或者一般把日志重定向到log文件中，在执行过程中用tail -f 查看执行日志，实时监控执行进程。</p>
 <h2 id="四、Spark-性能调优经验"><a href="#四、Spark-性能调优经验" class="headerlink" title="四、Spark 性能调优经验"></a>四、Spark 性能调优经验</h2><h4 id="打印信息"><a href="#打印信息" class="headerlink" title="打印信息"></a>打印信息</h4><p>可以在程序中打印出一些输出信息，数据量很大的时候，做一些take(10)/show(10)/count()这样的action操作，就可以看到一些变量的中间状态了，比如将yarn作为资源管理器时，直接可以在yarn logs中就可以看到这些信息。这对我们调试也是很有帮助的，可以知道我们的程序是否得到了我们想得到的结果。</p>
 <h4 id="并行度调优"><a href="#并行度调优" class="headerlink" title="并行度调优"></a>并行度调优</h4><p>在物理执行期间，RDD会分为多个分区，每个分区存储了全体数据的一个子集，然后Spark会给每个分区的数据创建一个Task，Spark一般会根据其底层的存储系统自动推断出合适的并行度，比如从HDFS读数据会为每个文件区块创建一个分区，从混洗后的RDD派生下来的RDD的并行度保持和父一致。</p>
@@ -461,12 +461,12 @@ var _hmt = _hmt || [];
             "name": "StatUnion"
         },
         "headline": "Spark笔记（3）：集群运行Spark程序实例讲解",
-        "image": "http://statunion.cnhttp://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png",
+        "image": "http://statunion.cnhttp://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png",
         "keywords": "驱动器 执行器 spark-submit YARN",
         "genre": "大数据 Spark",
         "datePublished": "2019-06-26",
         "dateCreated": "2019-06-26",
-        "dateModified": "2019-06-26",
+        "dateModified": "2019-06-29",
         "url": "http://statunion.cn/2019/06/26/Spark-3/",
         "description": "
 之前都是在spark shell上执行，当数据量达到一定程度，我们可以利用Spark的集群模式来运行，增加算力，而且本地小数据量验证成功的代码可以直接放到集群上跑。
@@ -551,7 +551,7 @@ var _hmt = _hmt || [];
 
          <br>
 
-		<p><img border="50" src="http://ps7ltd8cr.bkt.clouddn.com/2019-06-15-statunion.png" width="260" height="260">
+		<p><img border="50" src="http://ptuaevgcl.bkt.clouddn.com/2019-06-15-statunion.png" width="260" height="260">
 		</p>
 
         </div>
@@ -570,7 +570,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/26/Spark-3/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
     
     
 </a>
@@ -590,7 +590,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/22/Spark-2/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
     
     
 </a>
@@ -610,7 +610,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/21/AD-RS-2/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
     
     
 </a>
@@ -630,7 +630,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/19/AD-RS-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（1）：经久不衰的逻辑回归" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（1）：经久不衰的逻辑回归" class="thumbnail-image"></span>
     
     
 </a>
@@ -650,7 +650,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/19/ML-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ps7ltd8cr.bkt.clouddn.com/2019-06-19-014738.png)" alt="机器学习笔记（1）：线性回归" class="thumbnail-image"></span>
+        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png)" alt="机器学习笔记（1）：线性回归" class="thumbnail-image"></span>
     
     
 </a>
