@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="应统联盟">
 <meta property="og:description" content="初入机器学习领域，我们都会听闻各种模型的名字，比如SVM、树模型、聚类算法等等，这个机器学习笔记系列从基础的模型出发，如线性回归、逻辑回归、随机森林、LightGBM、SVM、孤立森林、聚类算法等，再到机器学习的特征工程、优化算法等等，以公式推导模型理解为主要内容，辅以编程实现。 第一篇我们先介绍一下最容易解释与扩展的线性回归模型。 一、线性回归模型线性回归假设特征和结果满足线性关系。其实线性关系">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png">
-<meta property="og:updated_time" content="2019-06-29T06:34:02.760Z">
+<meta property="og:image" content="https://i.loli.net/2019/07/08/5d22a8116ef3430793.png">
+<meta property="og:updated_time" content="2019-07-08T02:19:02.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记（1）：线性回归">
 <meta name="twitter:description" content="初入机器学习领域，我们都会听闻各种模型的名字，比如SVM、树模型、聚类算法等等，这个机器学习笔记系列从基础的模型出发，如线性回归、逻辑回归、随机森林、LightGBM、SVM、孤立森林、聚类算法等，再到机器学习的特征工程、优化算法等等，以公式推导模型理解为主要内容，辅以编程实现。 第一篇我们先介绍一下最容易解释与扩展的线性回归模型。 一、线性回归模型线性回归假设特征和结果满足线性关系。其实线性关系">
-<meta name="twitter:image" content="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/07/08/5d22a8116ef3430793.png">
     
 
     
@@ -217,7 +217,7 @@ var _hmt = _hmt || [];
 <p>那上面为什么是条件概率$p(y|x;\theta)$呢？因为我们希望预测值与真实值更接近，这就意味着希望求出来的参数$\theta$，在给定输入$x$的情况下，得到的预测值等于真实值得可能性越大越好。而$\theta$，$x$均为前提条件，因此用条件概率$p(y|x;\theta)$表示。即$p(y|x;\theta)$越大，越能说明估计的越准确。当然也不能一味地只有该条件函数，还要考虑拟合过度以及模型的泛化能力问题。</p>
 <h2 id="三、参数估计"><a href="#三、参数估计" class="headerlink" title="三、参数估计"></a>三、参数估计</h2><p>如何调整参数$\theta$使得$J(\theta)$取得最小值？方法有很多，这里介绍几种比较经典的方法，即最小二乘法、梯度下降法以及牛顿法。</p>
 <h3 id="3-1-最小二乘法"><a href="#3-1-最小二乘法" class="headerlink" title="3.1 最小二乘法"></a>3.1 最小二乘法</h3><h4 id="3-1-1-目标函数的矩阵形式"><a href="#3-1-1-目标函数的矩阵形式" class="headerlink" title="3.1.1 目标函数的矩阵形式"></a>3.1.1 目标函数的矩阵形式</h4><p>将$m$个$n$维样本组成矩阵$X$：</p>
-<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png" alt></p>
+<p><img src="https://i.loli.net/2019/07/08/5d22a8116ef3430793.png" alt></p>
 <p>则目标函数的矩阵形式为<br>$$<br>J\left(\theta\right)=\frac{1}{2}\sum_{i=1}^m{\left(h_{\theta}\left(x^{\left(i\right)}\right)-y^{\left(i\right)}\right)^2}=\frac{1}{2}\left(X\theta -y\right)^T\left(X\theta -y\right)<br>$$</p>
 <h4 id="3-1-2-最小二乘法求解"><a href="#3-1-2-最小二乘法求解" class="headerlink" title="3.1.2 最小二乘法求解"></a>3.1.2 最小二乘法求解</h4><p>对$\theta$求导，梯度（矩阵求导）：<br>$$<br>\nabla_\theta J\left(\theta\right)=\nabla_\theta\left(\frac{1}{2}\left(X\theta-y\right)^T\left(X\theta-y\right)\right)<br>$$<br>$$<br>=\nabla_\theta\left(\frac{1}{2}\left(\theta^TX^TX\theta-\theta^TX^Ty-y^Ty\right)\right)<br>$$<br>$$<br>=\frac{1}{2}\left(2X^TX\theta-X^Ty-\left(y^TX\right)^T\right)<br>$$<br>$$<br>=X^TX\theta-X^Ty<br>$$<br>令其为零，求得驻点：<br>$$<br>\theta=\left(X^TX\right)^{-1}X^Ty<br>$$</p>
 <h3 id="3-2-梯度下降法"><a href="#3-2-梯度下降法" class="headerlink" title="3.2 梯度下降法"></a>3.2 梯度下降法</h3><p>梯度下降法是按下面的流程进行的：</p>
@@ -225,20 +225,18 @@ var _hmt = _hmt || [];
 <li>1）首先对$\theta$赋值，这个值可以是随机的，也可是让$\theta$是一个全零的向量；</li>
 <li>2）改变$\theta$的值，使得$J(\theta)$按梯度下降的方向进行减少。</li>
 </ul>
-<p>为了更清楚，给出下面的图：<br><img src="http://ptuaevgcl.bkt.clouddn.com/2019-05-18-024927.jpg" alt></p>
+<p>为了更清楚，给出下面的图：<br><img src="https://i.loli.net/2019/07/08/5d22a775f416933094.png" alt></p>
 <p>这是一个表示参数$\theta$与目标函数$J(\theta)$的关系图，红色的部分是表示$J(\theta)$有比较高的取值，我们需要的是，能够让$J(\theta)$的值尽量的低。也就是深蓝色的部分。$\theta_0$和$\theta_1$表示$\theta$向量的两个维度。</p>
 <p>在上面提到梯度下降法的第一步是给$\theta$一个初值，假设随机给的初值是在图上的十字点。然后我们将$\theta$按照梯度下降的方向进行调整，就会使得$J(\theta)$往更低的方向进行变化，如图所示，算法的结束将是在$\theta$下降到无法继续下降为止。</p>
 <p>当然，可能梯度下降的最终点并非是全局最小点，可能是一个局部最小点，比如下面这张图中描述的就是一个局部最小点，这是我们重新选择了一个初始点得到的，看来我们这个算法会在很大程度上被初始点的选择影响而陷入局部最小点。</p>
-<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-05-18-033155.jpg" alt></p>
+<p><img src="https://i.loli.net/2019/07/08/5d22a7846ad7c66655.png" alt></p>
 <p>下面对于目标函数$J(\theta)$求偏导数：<br>$$<br>\frac{\partial}{\partial\theta_j}J\left(\theta\right)=\frac{\partial}{\partial\theta_j}\frac{1}{2}\left(h_{\theta}\left(x\right)-y\right)^2<br>$$<br>$$<br>=2·\frac{1}{2}\left(h_{\theta}\left(x\right)-y\right)\frac{\partial}{\partial\theta_j}\left(h_{\theta}\left(x\right)-y\right)<br>$$<br>$$<br>=\left(h_{\theta}\left(x\right)-y\right)x_j<br>$$</p>
 <p>下面是更新的过程，也就是$\theta_i$会向着梯度最小的方向进行减少。$\theta$表示更新之前的值，$a$表示步长，也就是每次按照梯度减少的方向变化多少，由于求得是极小值，因此梯度方向是偏导数的反方向，结果为<br>$$<br>\theta :=\theta_j+a\left(h_{\theta}\left(x\right)-y\right)x_j<br>$$<br>一个很重要的地方值得注意的是，梯度是有方向的，对于一个向量$\theta$，每一维分量$\theta_i$都可以求出一个梯度的方向，我们就可以找到一个整体的方向，在变化的时候，我们就朝着下降最多的方向进行变化就可以达到一个最小点，不管他是全局的还是局部的。</p>
 <p>在对目标函数$J(\theta)$求偏导时，可以用更简单的数学语言（倒三角表示梯度）进行描述：<br>$$<br>\nabla_{\theta}J=\left[\begin{array}{c}<br>    \frac{\partial}{\partial\theta_0}J\<br>    ···\<br>    ···\<br>    \frac{\partial}{\partial\theta_n}J\<br>\end{array}\right]<br>$$<br>$$<br>\theta :=\theta +a\nabla_{\theta}J<br>$$<br>将梯度下降法应用到线性回归有三种方式：批处理梯度下降法、随机梯度下降法。</p>
-<h4 id="3-2-1-批量梯度下降法（BGD）"><a href="#3-2-1-批量梯度下降法（BGD）" class="headerlink" title="3.2.1 批量梯度下降法（BGD）"></a>3.2.1 批量梯度下降法（BGD）</h4><p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-05-18-033207.jpg" alt></p>
-<p>可以看出，参数$\theta$的值每更新一次都要遍历样本集中的所有的样本，得到新的$\theta_j$，看是否满足阈值要求，若满足，则迭代结束，根据此值就可以得到；否则继续迭代。注意到，虽然梯度下降法易受到极小值的影响，但是一般的线性规划问题只有一个极小值，所以梯度下降法一般可以收敛到全局的最小值。例如，$J$是二次凸函数，则梯度下降法的示意图为：</p>
-<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-05-18-033221.jpg" alt></p>
+<h4 id="3-2-1-批量梯度下降法（BGD）"><a href="#3-2-1-批量梯度下降法（BGD）" class="headerlink" title="3.2.1 批量梯度下降法（BGD）"></a>3.2.1 批量梯度下降法（BGD）</h4><p><img src="https://i.loli.net/2019/07/08/5d22a7a6d66c577751.png" alt><br>可以看出，参数$\theta$的值每更新一次都要遍历样本集中的所有的样本，得到新的$\theta_j$，看是否满足阈值要求，若满足，则迭代结束，根据此值就可以得到；否则继续迭代。注意到，虽然梯度下降法易受到极小值的影响，但是一般的线性规划问题只有一个极小值，所以梯度下降法一般可以收敛到全局的最小值。例如，$J$是二次凸函数，则梯度下降法的示意图为：<br><img src="https://i.loli.net/2019/07/08/5d22a7908e99893624.png" alt></p>
 <p>图中，一圈上表示目标函数的函数值类似于地理上的等高线，从外圈开始逐渐迭代，最终收敛全局最小值。</p>
-<h4 id="3-2-2-随机梯度下降算法（SGD）"><a href="#3-2-2-随机梯度下降算法（SGD）" class="headerlink" title="3.2.2 随机梯度下降算法（SGD）"></a>3.2.2 随机梯度下降算法（SGD）</h4><p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-05-18-033230.jpg" alt><br>在这个算法中，我们每次更新只用到一个训练样本，若根据当前严格不能进行迭代得到一个，此时会得到一个，有新样本进来之后，在此基础上继续迭代，又得到一组新的和，以此类推。</p>
-<p><img src="http://ptuaevgcl.bkt.clouddn.com/2019-05-18-033253.jpg" alt></p>
+<h4 id="3-2-2-随机梯度下降算法（SGD）"><a href="#3-2-2-随机梯度下降算法（SGD）" class="headerlink" title="3.2.2 随机梯度下降算法（SGD）"></a>3.2.2 随机梯度下降算法（SGD）</h4><p><img src="https://i.loli.net/2019/07/08/5d22a7afca86330074.png" alt><br>在这个算法中，我们每次更新只用到一个训练样本，若根据当前严格不能进行迭代得到一个，此时会得到一个，有新样本进来之后，在此基础上继续迭代，又得到一组新的和，以此类推。</p>
+<p><img src="https://i.loli.net/2019/07/08/5d22a7b8d641426895.png" alt></p>
 <p>批量梯度下降法，每更新一次，需要用到样本集中的所有样本；随机梯度下降法，每更新一次，只用到训练集中的一个训练样本，所以一般来说，随机梯度下降法能更快地使目标函数达到最小值（新样本的加入，随机梯度下降法有可能会使目标函数突然变大，迭代过程中在变小。所以是在全局最小值附近徘徊，但对于实际应用俩说，误差完全能满足要求）。另外，对于批量梯度下降法，如果样本集增加了一些训练样本，就要重新开始迭代。由于以上原因，当训练样本集较大时，一般使用随机梯度下降法。</p>
 <p>参考资料</p>
 <p><a href="http://www.cnblogs.com/jerrylead/archive/2011/03/05/1971867.html" target="_blank" rel="noopener">对线性回归，logistic回归和一般回归的认识</a></p>
@@ -249,7 +247,7 @@ var _hmt = _hmt || [];
 
 
 
-    <a data-url="http://statunion.cn/2019/06/19/ML-1/" data-id="cjxh5yj4t001xi3n80tdost2a" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://statunion.cn/2019/06/19/ML-1/" data-id="cjxtrzbk7001tm5n8y4qo0zb7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -320,12 +318,12 @@ var _hmt = _hmt || [];
             "name": "StatUnion"
         },
         "headline": "机器学习笔记（1）：线性回归",
-        "image": "http://statunion.cnhttp://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png",
+        "image": "http://statunion.cnhttps://i.loli.net/2019/07/08/5d22a8116ef3430793.png",
         "keywords": "线性回归 机器学习",
         "genre": "算法 机器学习",
         "datePublished": "2019-06-19",
         "dateCreated": "2019-06-19",
-        "dateModified": "2019-06-29",
+        "dateModified": "2019-07-08",
         "url": "http://statunion.cn/2019/06/19/ML-1/",
         "description": "初入机器学习领域，我们都会听闻各种模型的名字，比如SVM、树模型、聚类算法等等，这个机器学习笔记系列从基础的模型出发，如线性回归、逻辑回归、随机森林、LightGBM、SVM、孤立森林、聚类算法等，再到机器学习的特征工程、优化算法等等，以公式推导模型理解为主要内容，辅以编程实现。
 第一篇我们先介绍一下最容易解释与扩展的线性回归模型。
@@ -419,7 +417,7 @@ var _hmt = _hmt || [];
 
          <br>
 
-		<p><img border="50" src="http://ptuaevgcl.bkt.clouddn.com/2019-06-15-statunion.png" width="260" height="260">
+		<p><img border="50" src="https://i.loli.net/2019/07/08/5d22ac1a38fbf20446.png" width="260" height="260">
 		</p>
 
         </div>
@@ -438,7 +436,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/26/Spark-3/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
+        <span style="background-image:url(https://i.loli.net/2019/07/08/5d22a5ea178e952536.png)" alt="Spark笔记（3）：集群运行Spark程序实例讲解" class="thumbnail-image"></span>
     
     
 </a>
@@ -458,7 +456,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/22/Spark-2/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-WeChat188432e07d5a8014cce1fbf3f90a207b-1.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
+        <span style="background-image:url(https://i.loli.net/2019/07/08/5d22a5ea178e952536.png)" alt="Spark笔记（2）：Pair RDD与数据分区" class="thumbnail-image"></span>
     
     
 </a>
@@ -478,7 +476,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/21/AD-RS-2/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
+        <span style="background-image:url(https://i.loli.net/2019/07/08/5d22a6a5b959445226.png)" alt="广告&amp;推荐面面观（2）：大规模分片线性模型MLR" class="thumbnail-image"></span>
     
     
 </a>
@@ -498,7 +496,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/19/AD-RS-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-s29694243.jpg)" alt="广告&amp;推荐面面观（1）：经久不衰的逻辑回归" class="thumbnail-image"></span>
+        <span style="background-image:url(https://i.loli.net/2019/07/08/5d22a6a5b959445226.png)" alt="广告&amp;推荐面面观（1）：经久不衰的逻辑回归" class="thumbnail-image"></span>
     
     
 </a>
@@ -518,7 +516,7 @@ var _hmt = _hmt || [];
                             <a href="/2019/06/19/ML-1/" class="thumbnail">
     
     
-        <span style="background-image:url(http://ptuaevgcl.bkt.clouddn.com/2019-06-19-014738.png)" alt="机器学习笔记（1）：线性回归" class="thumbnail-image"></span>
+        <span style="background-image:url(https://i.loli.net/2019/07/08/5d22a8116ef3430793.png)" alt="机器学习笔记（1）：线性回归" class="thumbnail-image"></span>
     
     
 </a>
