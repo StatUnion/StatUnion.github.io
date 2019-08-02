@@ -21,7 +21,7 @@
 <meta property="og:description" content="广告位定价在竞价广告中，广告主能否获得某个广告位是由其变现能力也就是eCPM的大小来决定的。在以CPC结算即点击结算的单子中，eCPM即千次展示期望收入的计算公式为:$$eCPM = \mu *v$$其中：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/07/08/5d22a6a5b959445226.png">
-<meta property="og:updated_time" content="2019-07-12T08:32:57.392Z">
+<meta property="og:updated_time" content="2019-07-12T08:57:09.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="广告&amp;推荐面面观（3）：竞价广告定价策略与实现">
 <meta name="twitter:description" content="广告位定价在竞价广告中，广告主能否获得某个广告位是由其变现能力也就是eCPM的大小来决定的。在以CPC结算即点击结算的单子中，eCPM即千次展示期望收入的计算公式为:$$eCPM = \mu *v$$其中：">
@@ -309,6 +309,23 @@ var _hmt = _hmt || [];
 <p>A的下一排序是B，所以$q_s = \frac{eCPM_B}{\mu_s}= 0.008/0.016 = 0.5$<br>B的下一排序是C：所以$q_s = \frac{eCPM_C}{\mu_s}= 0.003/0.004 = 0.75$<br>C的下一排序是D：所以$q_s = \frac{eCPM_D}{\mu_s}= 0.002/0.01 = 0.2$，因为底价MRP=0.25,故最终的定价为0.25<br>D为最后一个广告，没有下一排序广告，所以按照底价定价为0.25</p>
 <p>整个计算过程比较简单，下面用python实现一下GSP定价的过程。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class cal_gsp(object):</span><br><span class="line">    </span><br><span class="line">    def __init__(self):</span><br><span class="line">        ## 初始化价格挤压因子和市场保留价</span><br><span class="line">        self.squash_k = 1</span><br><span class="line">        self.MRP = 0.25</span><br><span class="line">        </span><br><span class="line">    ## 计算加入挤压因子的ecpm</span><br><span class="line">    def cal_ecpm(self,ad_gsp):   </span><br><span class="line">        for ad_id,ad_mes in  ad_gsp.items():</span><br><span class="line">            bid = ad_mes.get(&apos;bid&apos;)</span><br><span class="line">            if bid&lt;MRP: </span><br><span class="line">                continue</span><br><span class="line">            ctr = ad_mes.get(&apos;ctr&apos;)</span><br><span class="line">            eCPM = (ctr**squash_k) * bid</span><br><span class="line">            ad_gsp[ad_id][&apos;eCPM&apos;] = eCPM    </span><br><span class="line">        return ad_gsp</span><br><span class="line">        </span><br><span class="line">    ## 按照ecpm排序</span><br><span class="line">    def get_sorted_ecpm(self,ad_gsp):  </span><br><span class="line">        return sorted(ad_gsp.items(),key = lambda x: x[1].get(&apos;eCPM&apos;),reverse=True)</span><br><span class="line"></span><br><span class="line">    ## 按照gsp策略计算最终的定价</span><br><span class="line">    def get_gsp(self, ad_gsp,sorted_ad_gsp):</span><br><span class="line">        for i in range(len(sorted_ad_gsp)):</span><br><span class="line">            cur_ad = sorted_ad_gsp[i]</span><br><span class="line">            ad_id = cur_ad[0]</span><br><span class="line">            if i &lt; len(sorted_ad_gsp)-1:</span><br><span class="line">                next_ad = sorted_ad_gsp[i+1]</span><br><span class="line">                price = next_ad[1].get(&apos;eCPM&apos;)/cur_ad[1].get(&apos;ctr&apos;)</span><br><span class="line">                if  price &lt; MRP:</span><br><span class="line">                    price = MRP</span><br><span class="line">                ad_gsp[cur_ad[0]][&apos;gsp&apos;] = price</span><br><span class="line">            else:</span><br><span class="line">                ad_gsp[cur_ad[0]][&apos;gsp&apos;] = MRP</span><br><span class="line">        return ad_gsp</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    ## 示例</span><br><span class="line">    ad_gsp = &#123;&apos;A&apos;:&#123;&apos;bid&apos;:0.8,&apos;ctr&apos;:1.6&#125;,&apos;B&apos;:&#123;&apos;bid&apos;:2.0,&apos;ctr&apos;:0.4&#125;,&apos;C&apos;:&#123;&apos;bid&apos;:0.3,&apos;ctr&apos;:1&#125;,&apos;D&apos;:&#123;&apos;bid&apos;:0.4,&apos;ctr&apos;:0.5&#125;&#125;</span><br><span class="line">    cal_gsp = cal_gsp()</span><br><span class="line">    ad_gsp = cal_gsp.cal_ecpm(ad_gsp)</span><br><span class="line">    sorted_ad_gsp = cal_gsp.get_sorted_ecpm(ad_gsp)</span><br><span class="line">    result = cal_gsp.get_gsp(ad_gsp,sorted_ad_gsp)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/26596778/" target="_blank" rel="noopener">计算广告</a></li>
+<li><a href="https://www.zhihu.com/question/20421934" target="_blank" rel="noopener">知乎问答</a></li>
+</ul>
+<p>定价问题延伸阅读：</p>
+<ul>
+<li>Research Frontier of Real-Time Bidding based Display Advertising </li>
+<li>Budget Constrained Bidding by Model-free Reinforcement Learning in Display Advertising </li>
+<li>Real-Time Bidding with Multi-Agent Reinforcement Learning in Display Advertising </li>
+<li>Real-Time Bidding by Reinforcement Learning in Display Advertising </li>
+<li>Combining Powers of Two Predictors in Optimizing Real-Time Bidding Strategy under Constrained Budget </li>
+<li>Bid-aware Gradient Descent for Unbiased Learning with Censored Data in Display Advertising </li>
+<li>Optimized Cost per Click in Taobao Display Advertising </li>
+<li>Real-Time Bidding Algorithms for Performance-Based Display Ad Allocation </li>
+<li>Deep Reinforcement Learning for Sponsored Search Real-time Bidding </li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -316,7 +333,7 @@ var _hmt = _hmt || [];
 
 
 
-    <a data-url="http://statunion.cn/2019/07/12/AD-RS-3/" data-id="cjxzubudj001oxgn868df7774" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://statunion.cn/2019/07/12/AD-RS-3/" data-id="cjytyvkrs001od9n8vdi3gsjn" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -396,7 +413,7 @@ var _hmt = _hmt || [];
         "url": "http://statunion.cn/2019/07/12/AD-RS-3/",
         "description": "
 广告位定价在竞价广告中，广告主能否获得某个广告位是由其变现能力也就是eCPM的大小来决定的。在以CPC结算即点击结算的单子中，eCPM即千次展示期望收入的计算公式为:$$eCPM = \mu *v$$其中："
-        "wordCount": 660
+        "wordCount": 750
     }
 </script>
 
