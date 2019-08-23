@@ -1,106 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://statunion.cn/2019/07/12/AD-RS-3/</loc>
-    <lastmod>2019-07-12</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/RUC-4/</loc>
-    <lastmod>2019-07-09</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/06/22/Spark-2/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/06/21/AD-RS-2/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/06/19/ML-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/06/19/AD-RS-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/06/26/Spark-3/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/27/BNU-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/CUFE-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/27/ECNU-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/27/FDU-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/PKU-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/PKU-2/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/15/PKU-3/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/15/PKU-4/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/15/PKU-5/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/15/PKU-6/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/15/PKU-7/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/RUC-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/RUC-2/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/RUC-3/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/RUC-5/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/14/RUC-6/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/14/RUC-7/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/14/RUC-8/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/14/RUC-9/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/27/SJTU-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/24/SUFE-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/25/SUFE-2/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/06/19/Spark-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/THU-1/</loc>
-    <lastmod>2019-07-08</lastmod>
-  </url>  <url>
-    <loc>http://statunion.cn/2019/04/13/UIBE-1/</loc>
-    <lastmod>2019-07-08</lastmod>
+    <loc>http://statunion.cn/2019/06/19/University-2/</loc>
+    <lastmod>2019-08-23</lastmod>
   </url>  <url>
     <loc>http://statunion.cn/2019/06/19/University-1/</loc>
-    <lastmod>2019-07-08</lastmod>
+    <lastmod>2019-08-23</lastmod>
   </url>  <url>
-    <loc>http://statunion.cn/2019/06/19/University-2/</loc>
-    <lastmod>2019-07-08</lastmod>
+    <loc>http://statunion.cn/2019/04/13/UIBE-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/THU-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/25/SUFE-2/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/24/SUFE-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/27/SJTU-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/14/RUC-9/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/14/RUC-8/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/14/RUC-7/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/14/RUC-6/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/RUC-5/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/RUC-4/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/RUC-3/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/RUC-2/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/RUC-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/15/PKU-7/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/15/PKU-6/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/15/PKU-5/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/15/PKU-4/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/15/PKU-3/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/PKU-2/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/PKU-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/27/FDU-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/27/ECNU-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/13/CUFE-1/</loc>
+    <lastmod>2019-08-23</lastmod>
+  </url>  <url>
+    <loc>http://statunion.cn/2019/04/27/BNU-1/</loc>
+    <lastmod>2019-08-23</lastmod>
   </url>
 </urlset>
